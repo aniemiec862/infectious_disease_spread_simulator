@@ -1,1 +1,1 @@
-# infectious_disease_spread_simulator
+# Infectious disease spread simulator
