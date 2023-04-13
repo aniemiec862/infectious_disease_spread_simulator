@@ -32,7 +32,7 @@ class Engine:
         surface.fill(SURFACE_COLOR)
         for person in self.people:
             color = HEALTHY_PERSON_COLOR if not person.diseased else DISEASED_PERSON_COLOR
-            pygame.draw.circle(surface, color, (person.x, person.y), DOT_RADIUS)
+            pygame.draw.circle(surface, color, (person.get_position()), DOT_RADIUS)
 
     def update(self):
         for person in self.people:

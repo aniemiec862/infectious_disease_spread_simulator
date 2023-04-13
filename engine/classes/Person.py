@@ -5,9 +5,6 @@ class Person:
     def __init__(self, x, y, speed, diseased=False, sex='M', age=20, rotation=0):
         self.sex = sex
         self.age = age
-        self.x = x
-        self.y = y
-        self.speed = speed
         self.infected = False
         self.diseased = diseased
         self.vaccinated = False
@@ -18,13 +15,15 @@ class Person:
         self.other_diseases_factor = 0
 
     def move(self, max_width, max_height, radius):
-        dx = random.uniform(-self.speed, self.speed)
-        dy = random.uniform(-self.speed, self.speed)
-        if radius < self.x + dx < max_width - radius:
-            self.x += dx
-        if radius < self.y + dy < max_height - radius:
-            self.y += dy
+        dx = random.uniform(-self.position_state.speed, self.position_state.speed)
+        dy = random.uniform(-self.position_state.speed, self.position_state.speed)
+        if radius < self.position_state.x + dx < max_width - radius:
+            self.position_state.x += dx
+        if radius < self.position_state.y + dy < max_height - radius:
+            self.position_state.y += dy
 
+    def get_position(self):
+        return self.position_state.x, self.position_state.y
 
     def set_infected(self, value):
         if self.infected is True and value is False:

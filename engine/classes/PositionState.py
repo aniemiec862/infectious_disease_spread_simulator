@@ -1,16 +1,16 @@
 class PositionState:
-    def __init__(self, x, y, velocity, rotation):
+    def __init__(self, x, y, speed, rotation):
         self.x = x
         self.y = y
-        self.velocity = velocity
+        self.speed = speed
         self.rotation = rotation
 
     def set_position(self, x, y):
         self.x = x
         self.y = y
 
-    def set_velocity(self, velocity):
-        self.velocity = velocity
+    def set_speed(self, speed):
+        self.speed = speed
 
     def set_rotation(self, rotation):
         self.rotation = rotation
