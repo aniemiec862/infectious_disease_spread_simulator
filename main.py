@@ -1,34 +1,27 @@
 import pygame
+from engine.simulation import Simulation
+
+WAIT_TIME = 100
 
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
-clock = pygame.time.Clock()
+
+width, height = 640, 480
+no_people, no_infected_people = 19, 1
+
+screen = pygame.display.set_mode((width, height))
+
+sim = Simulation(width, height, no_people, no_infected_people)
+
 running = True
-dt = 0
-
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill("purple")
-
-    pygame.draw.circle(screen, "red", player_pos, 40)
-
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
-    if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
-    if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
+    sim.update()
+    sim.draw(screen)
 
     pygame.display.flip()
-
-    dt = clock.tick(60) / 1000
+    pygame.time.wait(WAIT_TIME)
 
 pygame.quit()
