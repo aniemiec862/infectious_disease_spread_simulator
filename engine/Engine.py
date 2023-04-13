@@ -1,4 +1,4 @@
-from .person import Person
+from .classes.Person import Person
 import pygame
 import random
 
@@ -9,7 +9,7 @@ HEALTHY_PERSON_COLOR = (0, 255, 0)
 INFECTED_PERSON_COLOR = (255, 255, 0)
 DISEASED_PERSON_COLOR = (255, 0, 0)
 
-class Simulation:
+class Engine:
     def __init__(self, width, height, no_people, no_infected_people):
         self.width = width
         self.height = height
@@ -37,3 +37,4 @@ class Simulation:
     def update(self):
         for person in self.people:
             person.move(self.width, self.height, DOT_RADIUS)
+

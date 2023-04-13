@@ -1,5 +1,5 @@
 import pygame
-from engine.simulation import Simulation
+from engine.Engine import Engine
 
 WAIT_TIME = 100
 
@@ -10,7 +10,7 @@ no_people, no_infected_people = 19, 1
 
 screen = pygame.display.set_mode((width, height))
 
-sim = Simulation(width, height, no_people, no_infected_people)
+sim = Engine(width, height, no_people, no_infected_people)
 
 running = True
 while running:
