@@ -10,23 +10,21 @@ INFECTED_PERSON_COLOR = (255, 255, 0)
 DISEASED_PERSON_COLOR = (255, 0, 0)
 
 class Engine:
-    def __init__(self, width, height, no_people, no_infected_people):
+    def __init__(self, width, height, no_people, no_diseased_people):
         self.width = width
         self.height = height
         self.people = []
 
-        for _ in range(no_people):
-            self.people.append(Person(
-                x=random.randint(0, width),
-                y=random.randint(0, height),
-                speed=random.randint(1, MAX_SPEED)))
+        for i in range(no_people):
+            person = Person(
+                x=random.randint(DOT_RADIUS, width - DOT_RADIUS),
+                y=random.randint(DOT_RADIUS, height - DOT_RADIUS),
+                speed=random.randint(1, MAX_SPEED))
 
-        for _ in range(no_infected_people):
-            self.people.append(Person(
-                x=random.randint(0, width),
-                y=random.randint(0, height),
-                speed=random.randint(1, MAX_SPEED),
-                diseased=True))
+            if i < no_diseased_people:
+                person.diseased = True
+
+            self.people.append(person)
 
     def draw(self, surface):
         surface.fill(SURFACE_COLOR)

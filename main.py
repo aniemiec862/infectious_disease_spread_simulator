@@ -3,7 +3,7 @@ from engine.Engine import Engine
 
 WAIT_TIME = 100
 WIDTH, HEIGHT = 640, 480
-NO_PEOPLE, NO_DISEASED_PEOPLE = 19, 1
+NO_PEOPLE, NO_DISEASED_PEOPLE = 20, 1
 
 def paused():
     while True:
