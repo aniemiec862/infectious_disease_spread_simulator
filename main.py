@@ -3,7 +3,8 @@ from engine.Engine import Engine
 
 WAIT_TIME = 100
 WIDTH, HEIGHT = 640, 480
-NO_PEOPLE, NO_DISEASED_PEOPLE = 20, 1
+PEOPLE_COUNT, DISEASED_COUNT, INFECTED_COUNT, MALE_COUNT, VACCINATED_COUNT, WITH_MASK_COUNT, IMMUNE_COUNT, PREGNANT_COUNT = \
+    20, 2, 1, 10, 0, 0, 0, 3
 
 def paused():
     while True:
@@ -19,7 +20,7 @@ def paused():
 def run():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    sim = Engine(WIDTH, HEIGHT, NO_PEOPLE, NO_DISEASED_PEOPLE)
+    sim = Engine(WIDTH, HEIGHT, PEOPLE_COUNT, DISEASED_COUNT, INFECTED_COUNT, MALE_COUNT, VACCINATED_COUNT, WITH_MASK_COUNT, IMMUNE_COUNT, PREGNANT_COUNT)
 
     running = True
     while running:

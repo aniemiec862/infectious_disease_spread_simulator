@@ -3,8 +3,8 @@ import math
 import random
 
 class Person:
-    def __init__(self, x, y, speed, diseased=False, sex='M', age=20, rotation=0):
-        self.sex = sex
+    def __init__(self, x, y, speed, diseased=False, is_male=True, age=20, rotation=0):
+        self.is_male = is_male
         self.age = age
         self.infected = False
         self.diseased = diseased
