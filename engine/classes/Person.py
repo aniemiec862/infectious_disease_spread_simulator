@@ -1,4 +1,5 @@
 from .PositionState import PositionState
+import math
 import random
 
 class Person:
@@ -15,8 +16,12 @@ class Person:
         self.other_diseases_factor = 0
 
     def move(self, max_width, max_height, radius):
-        dx = random.uniform(-self.position_state.speed, self.position_state.speed)
-        dy = random.uniform(-self.position_state.speed, self.position_state.speed)
+        d_angle = random.uniform(-1, 1)
+        self.position_state.rotation = (self.position_state.rotation + d_angle) % 360
+        d_r = random.uniform(0, self.position_state.speed)
+        dx = math.cos(self.position_state.rotation) * d_r
+        dy = math.sin(self.position_state.rotation) * d_r
+
         if radius < self.position_state.x + dx < max_width - radius:
             self.position_state.x += dx
         if radius < self.position_state.y + dy < max_height - radius:

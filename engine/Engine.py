@@ -2,7 +2,7 @@ from .classes.Person import Person
 import pygame
 import random
 
-MAX_SPEED = 10
+MAX_SPEED = 100
 DOT_RADIUS = 10
 SURFACE_COLOR = (255, 255, 255)
 HEALTHY_PERSON_COLOR = (0, 255, 0)
