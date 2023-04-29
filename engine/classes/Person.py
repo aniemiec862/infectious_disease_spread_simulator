@@ -1,15 +1,22 @@
 from .PositionState import PositionState
 import math
 import random
+from enum import Enum
+
+
+class State(Enum):
+    HEALTHY = 1
+    INFECTED = 2
+    DISEASED = 3
+
 
 class Person:
-    def __init__(self, x, y, speed, diseased=False, is_male=True, age=20, rotation=0):
+    def __init__(self, x, y, speed, state=State.HEALTHY, is_male=True, age=20, rotation=0):
         self.is_male = is_male
         self.age = age
-        self.infected = False
-        self.diseased = diseased
+        self.state = state
         self.vaccinated = False
-        self.has_a_mask = False
+        self.mask = False
         self.immune = False
         self.pregnant = False
         self.position_state = PositionState(x, y, speed, rotation)
@@ -23,26 +30,30 @@ class Person:
         dy = math.sin(self.position_state.rotation) * d_r
 
         if radius < self.position_state.x + dx < max_width - radius:
-            self.position_state.x += dx
+            self.position_state.x += int(dx)
         if radius < self.position_state.y + dy < max_height - radius:
-            self.position_state.y += dy
+            self.position_state.y += int(dy)
 
     def get_position(self):
         return self.position_state.x, self.position_state.y
 
-    def set_infected(self, value):
-        if self.infected is True and value is False:
-            self.immune = True
-        self.infected = value
+    def get_state(self):
+        return self.state
 
-    def set_diseased(self, value):
-        self.diseased = value
+    def is_healthy(self):
+        return self.state == State.HEALTHY
+
+    def set_state(self, state):
+        self.state = state
 
     def set_vaccinated(self, value):
         self.vaccinated = value
 
     def set_mask(self, value):
-        self.has_a_mask = value
+        self.mask = value
+
+    def has_a_mask(self):
+        return self.mask
 
     def set_pregnant(self, value):
         self.pregnant = value
