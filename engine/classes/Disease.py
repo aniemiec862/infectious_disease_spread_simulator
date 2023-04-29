@@ -10,7 +10,7 @@ class Disease:
         if (person_1.is_healthy() and person_2.is_healthy()) or (person_1.is_healthy() is False and person_2.is_healthy() is False):
             return
 
-        if person_1.is_healthy() is True:
+        if person_1.is_healthy():
             healthy_person, diseased_person = person_1, person_2
         else:
             healthy_person, diseased_person = person_2, person_1
@@ -23,8 +23,8 @@ class Disease:
         chance = 100
         #TODO improve this calculation system, use other person parameters
 
-        if healthy_person.has_a_mask() is True:
+        if healthy_person.has_a_mask():
             chance -= 30
-        if diseased_person.has_a_mask() is True:
+        if diseased_person.has_a_mask():
             chance -= 60
         return chance
