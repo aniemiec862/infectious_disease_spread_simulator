@@ -21,7 +21,7 @@ class Disease:
 
     def calculate_infection_chance(self, healthy_person: Person, diseased_person: Person):
         chance = 100
-        #TODO improve this calculation system, use other parameters
+        #TODO improve this calculation system, use other person parameters
 
         if healthy_person.has_a_mask() is True:
             chance -= 30

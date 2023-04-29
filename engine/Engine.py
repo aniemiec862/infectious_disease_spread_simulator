@@ -57,6 +57,8 @@ class Engine:
             person.move(self.width, self.height, DOT_RADIUS)
             self.find_nearby_people(person)
 
+            #TODO use Disease.incubation_time to change person state from infected to diseases
+
     def find_nearby_people(self, person):
         x = person.get_position()[0]
         y = person.get_position()[1]
