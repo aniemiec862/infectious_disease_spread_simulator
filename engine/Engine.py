@@ -1,5 +1,6 @@
 from .classes.Person import Person, State
 from .classes.Disease import Disease
+from .classes.Statistics import Statistics
 import pygame
 import random
 import math
@@ -15,7 +16,7 @@ BORDER_WIDTH = 3
 
 
 class Engine:
-    def __init__(self, width, height, people_count, diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius, max_person_speed, incubation_time, disease_duration):
+    def __init__(self, width, stats_width, height, people_count, diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius, max_person_speed, incubation_time, disease_duration):
         self.width = width
         self.height = height
         self.people = []
@@ -46,6 +47,8 @@ class Engine:
                 else:
                     self.people[random_person_index].__setattr__(field_name, True)
 
+        self.statistics = Statistics(width + 10, self.people, people_count)
+
     @staticmethod
     def get_person_colors(person):
         state = person.get_state()
@@ -71,6 +74,8 @@ class Engine:
             pygame.draw.circle(surface, fill_color, (person.get_position()), DOT_RADIUS)
             if border_color is not None:
                 pygame.draw.circle(surface, border_color, (person.get_position()), DOT_RADIUS, BORDER_WIDTH)
+
+        self.statistics.update(surface)
 
     def update(self):
         for person in self.people:

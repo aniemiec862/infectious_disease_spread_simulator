@@ -48,6 +48,9 @@ class Person:
     def is_diseased(self):
         return self.state == State.DISEASED
 
+    def is_infected(self):
+        return self.state == State.INFECTED
+
     def set_state(self, state):
         self.state = state
 
