@@ -20,7 +20,9 @@ class Person:
         self.immune = False
         self.pregnant = False
         self.position_state = PositionState(x, y, speed, rotation)
-        self.other_diseases_factor = 0
+        self.other_diseases_factor = 0  # 0 - 100, is used in death calculation
+        self.time_to_incubate = None
+        self.diseased_time = 0
 
     def move(self, max_width, max_height, radius):
         d_angle = random.uniform(-1, 1)
@@ -43,6 +45,9 @@ class Person:
     def is_healthy(self):
         return self.state == State.HEALTHY
 
+    def is_diseased(self):
+        return self.state == State.DISEASED
+
     def set_state(self, state):
         self.state = state
 
@@ -55,8 +60,38 @@ class Person:
     def has_a_mask(self):
         return self.mask
 
+    def set_immune(self, value):
+        self.immune = value
+
     def set_pregnant(self, value):
         self.pregnant = value
 
     def set_other_diseases_factor(self, value):
         self.other_diseases_factor = value
+
+    def set_time_to_incubate(self, value):
+        self.time_to_incubate = value
+
+    def set_diseased_time(self, value):
+        self.diseased_time = value
+
+    def get_death_chance(self):
+        chance = self.other_diseases_factor
+        if self.is_diseased():
+            if self.age < 30:
+                chance += 10
+            elif 30 <= self.age < 60:
+                chance += 30
+            else:
+                chance += 50
+
+            if self.pregnant:
+                chance += 10
+
+            if self.vaccinated:
+                chance -= 30
+
+            if self.immune:
+                chance -= 10
+
+        return chance
