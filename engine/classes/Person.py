@@ -81,12 +81,16 @@ class Person:
     def get_death_chance(self):
         chance = self.other_diseases_factor
         if self.is_diseased():
-            if self.age < 30:
-                chance += 10
-            elif 30 <= self.age < 60:
-                chance += 30
+            if self.age < 50:
+                chance += 0.01 / 0.0027
+            elif self.age < 60:
+                chance += 0.013 / 0.0027
+            elif self.age < 70:
+                chance += 0.036 / 0.0027
+            elif self.age < 80:
+                chance += 0.08 / 0.0027
             else:
-                chance += 50
+                chance += 0.148 / 0.0027
 
             if self.pregnant:
                 chance += 10

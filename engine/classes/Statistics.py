@@ -34,5 +34,3 @@ class Statistics:
     def render_text(self, surface, text, x, y):
         text = self.font.render(text, True, 'black')
         surface.blit(text, (x, y))
-
-
