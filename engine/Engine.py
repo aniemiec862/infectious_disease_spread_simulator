@@ -16,7 +16,7 @@ BORDER_WIDTH = 3
 
 
 class Engine:
-    def __init__(self, width, stats_width, height, people_count, diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius, max_person_speed, incubation_time, disease_duration):
+    def __init__(self, width, height, people_count, diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius, max_person_speed, incubation_time, disease_duration):
         self.width = width
         self.height = height
         self.people = []
