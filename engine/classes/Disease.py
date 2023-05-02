@@ -19,7 +19,8 @@ class Disease:
         infection_chance = self.calculate_infection_chance(healthy_person, diseased_person)
         if random.randint(0, 100) < infection_chance:
             healthy_person.set_state(State.INFECTED)
-            healthy_person.set_time_to_incubate(self.incubation_time)
+            rand_incubation_time = round(random.uniform(0.7 * self.incubation_time, 1.3 * self.incubation_time))
+            healthy_person.set_time_to_incubate(rand_incubation_time)
 
     def calculate_infection_chance(self, healthy_person: Person, diseased_person: Person):
         chance = 100

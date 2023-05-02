@@ -42,8 +42,12 @@ class Engine:
                 field_name = fields[index]
                 if field_name == 'diseased':
                     self.people[random_person_index].set_state(State.DISEASED)
+                    rand_disease_time = round(random.uniform(0.7 * disease_duration, 1.3 * disease_duration))
+                    self.people[random_person_index].set_time_to_end_disease(rand_disease_time)
                 elif field_name == 'infected':
                     self.people[random_person_index].set_state(State.INFECTED)
+                    rand_incubation_time = round(random.uniform(0.7 * incubation_time, 1.3 * incubation_time))
+                    self.people[random_person_index].set_time_to_incubate(rand_incubation_time)
                 else:
                     self.people[random_person_index].__setattr__(field_name, True)
 
@@ -96,24 +100,24 @@ class Engine:
             if math.sqrt((x - checked_x_pos) ** 2 + (y - checked_y_pos) ** 2) <= r:
                 self.disease.infect(person, checked_person)
 
-    @staticmethod
-    def calculate_incubation_time(person):
+    def calculate_incubation_time(self, person):
         if person.time_to_incubate is not None:
             if person.time_to_incubate > 0:
                 person.set_time_to_incubate(person.time_to_incubate - 1)
             else:
                 person.set_time_to_incubate(None)
                 person.set_state(State.DISEASED)
+                rand_disease_time = round(random.uniform(0.7 * self.disease.duration, 1.3 * self.disease.duration))
+                person.set_time_to_end_disease(rand_disease_time)
 
     def calculate_diseased_time(self, person):
         if person.is_diseased():
-            if person.diseased_time < self.disease.duration:
-                person.set_diseased_time(person.diseased_time + 1)
+            if person.time_to_end_disease > 0:
+                person.set_time_to_end_disease(person.time_to_end_disease - 1)
             else:
                 if random.randint(0, 100) < person.get_death_chance():
                     self.people.remove(person)
-                    print(len(self.people))
                 else:
-                    person.set_diseased_time(0)
+                    person.set_time_to_end_disease(None)
                     person.set_state(State.HEALTHY)
                     person.set_immune(True)

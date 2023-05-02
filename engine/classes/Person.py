@@ -22,7 +22,7 @@ class Person:
         self.position_state = PositionState(x, y, speed, rotation)
         self.other_diseases_factor = 0  # 0 - 100, is used in death calculation
         self.time_to_incubate = None
-        self.diseased_time = 0
+        self.time_to_end_disease = None
 
     def move(self, max_width, max_height, radius):
         d_angle = random.uniform(-1, 1)
@@ -75,8 +75,8 @@ class Person:
     def set_time_to_incubate(self, value):
         self.time_to_incubate = value
 
-    def set_diseased_time(self, value):
-        self.diseased_time = value
+    def set_time_to_end_disease(self, value):
+        self.time_to_end_disease = value
 
     def get_death_chance(self):
         chance = self.other_diseases_factor
