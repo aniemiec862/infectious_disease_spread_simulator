@@ -11,12 +11,12 @@ DOT_RADIUS = 10
 
 
 class Engine:
-    def __init__(self, surface, width, height, people_count, diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius, max_person_speed, incubation_time, disease_duration):
+    def __init__(self, surface, width, height, people_count, diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius, max_person_speed, incubation_time, disease_duration, hygiene_level):
         self.surface = surface
         self.width = width
         self.height = height
         self.people = []
-        self.disease = Disease(disease_spread_radius, incubation_time, disease_duration)
+        self.disease = Disease(disease_spread_radius, incubation_time, disease_duration, hygiene_level)
         self.renderer = Renderer(surface, DOT_RADIUS, SURFACE_COLOR)
 
         for _ in range(people_count):
