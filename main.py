@@ -29,7 +29,7 @@ def paused():
 def run():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH + STATS_WIDTH, HEIGHT))
-    sim = Engine(WIDTH, HEIGHT, PEOPLE_COUNT, DISEASED_COUNT, INFECTED_COUNT, MALE_COUNT, VACCINATED_COUNT,
+    sim = Engine(screen, WIDTH, HEIGHT, PEOPLE_COUNT, DISEASED_COUNT, INFECTED_COUNT, MALE_COUNT, VACCINATED_COUNT,
                  WITH_MASK_COUNT, IMMUNE_COUNT, PREGNANT_COUNT, DISEASE_SPREAD_RADIUS, MAX_PERSON_SPEED,
                  INCUBATION_TIME, DISEASE_DURATION)
 
@@ -42,7 +42,7 @@ def run():
                 if event.key == pygame.K_SPACE:
                     paused()
         sim.update()
-        sim.draw(screen)
+        sim.draw()
 
         pygame.display.flip()
         pygame.time.wait(WAIT_TIME)

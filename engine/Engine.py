@@ -1,26 +1,23 @@
+from .classes.Legend import Legend
 from .classes.Person import Person, State
 from .classes.Disease import Disease
+from .classes.Renderer import Renderer
 from .classes.Statistics import Statistics
-import pygame
 import random
 import math
 
-DOT_RADIUS = 10
 SURFACE_COLOR = (255, 255, 255)
-HEALTHY_PERSON_COLOR = "#2ede28"
-INFECTED_PERSON_COLOR = "#edcd15"
-DISEASED_PERSON_COLOR = "#ed381c"
-IMMUNE_PERSON_COLOR = "#47a5bf"
-VACCINATED_PERSON_COLOR = "#0f5ca8"
-BORDER_WIDTH = 3
+DOT_RADIUS = 10
 
 
 class Engine:
-    def __init__(self, width, height, people_count, diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius, max_person_speed, incubation_time, disease_duration):
+    def __init__(self, surface, width, height, people_count, diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius, max_person_speed, incubation_time, disease_duration):
+        self.surface = surface
         self.width = width
         self.height = height
         self.people = []
         self.disease = Disease(disease_spread_radius, incubation_time, disease_duration)
+        self.renderer = Renderer(surface, DOT_RADIUS, SURFACE_COLOR)
 
         for _ in range(people_count):
             person = Person(
@@ -51,35 +48,19 @@ class Engine:
                 else:
                     self.people[random_person_index].__setattr__(field_name, True)
 
-        self.statistics = Statistics(width + 10, self.people, people_count)
+        stats_offset_x = width + 40
+        stats_offset_y = 10
+        legend_offset_y = 230
+        self.statistics = Statistics(self.renderer, stats_offset_x, stats_offset_y, self.people, people_count)
+        self.legend = Legend(self.renderer, stats_offset_x, legend_offset_y)
 
-    @staticmethod
-    def get_person_colors(person):
-        state = person.get_state()
-        if state == state.HEALTHY:
-            fill_color = HEALTHY_PERSON_COLOR
-        elif state == state.INFECTED:
-            fill_color = INFECTED_PERSON_COLOR
-        else:
-            fill_color = DISEASED_PERSON_COLOR
-
-        border_color = None
-        if person.immune is True:
-            border_color = IMMUNE_PERSON_COLOR
-        elif person.vaccinated is True:
-            border_color = VACCINATED_PERSON_COLOR
-
-        return fill_color, border_color
-
-    def draw(self, surface):
-        surface.fill(SURFACE_COLOR)
+    def draw(self):
+        self.surface.fill(SURFACE_COLOR)
         for person in self.people:
-            fill_color, border_color = self.get_person_colors(person)
-            pygame.draw.circle(surface, fill_color, (person.get_position()), DOT_RADIUS)
-            if border_color is not None:
-                pygame.draw.circle(surface, border_color, (person.get_position()), DOT_RADIUS, BORDER_WIDTH)
+            self.renderer.draw_person(person.state, person.immune,person.vaccinated, (person.get_position()))
 
-        self.statistics.update(surface)
+        self.statistics.update()
+        self.legend.draw_legend()
 
     def update(self):
         for person in self.people:

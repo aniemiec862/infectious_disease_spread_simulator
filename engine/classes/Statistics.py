@@ -1,15 +1,12 @@
-import pygame
-
-
 class Statistics:
-    def __init__(self, offset, people, initial_people_count):
-        self.x_offset = offset
-        self.y_offset = 10
+    def __init__(self, renderer, x_offset, y_offset, people, initial_people_count):
+        self.renderer = renderer
+        self.x_offset = x_offset
+        self.y_offset = y_offset
         self.people = people
         self.initial_people_count = initial_people_count
-        self.font = pygame.font.SysFont("Arial", 16)
 
-    def update(self, surface):
+    def update(self):
         people_count = len(self.people)
         deaths = self.initial_people_count - people_count
         infected = diseased = immune = vaccinated = 0
@@ -24,13 +21,12 @@ class Statistics:
             if person.vaccinated:
                 vaccinated += 1
 
-        self.render_text(surface, f"Alive: {people_count}", self.x_offset, self.y_offset)
-        self.render_text(surface, f"Deaths: {deaths}", self.x_offset, self.y_offset + 20)
-        self.render_text(surface, f"Infected: {infected}", self.x_offset, self.y_offset + 40)
-        self.render_text(surface, f"Diseased: {diseased}", self.x_offset, self.y_offset + 60)
-        self.render_text(surface, f"Immune: {immune}", self.x_offset, self.y_offset + 80)
-        self.render_text(surface, f"Vaccinated: {vaccinated}", self.x_offset, self.y_offset + 100)
+        self.renderer.render_text("Statistics:", self.x_offset, self.y_offset, True)
 
-    def render_text(self, surface, text, x, y):
-        text = self.font.render(text, True, 'black')
-        surface.blit(text, (x, y))
+        items_x_offset = self.x_offset + 20
+        self.renderer.render_text(f"Alive: {people_count}/{self.initial_people_count}", items_x_offset, self.y_offset + 30)
+        self.renderer.render_text(f"Deaths: {deaths}", items_x_offset, self.y_offset + 60)
+        self.renderer.render_text(f"Infected: {infected}", items_x_offset, self.y_offset + 90)
+        self.renderer.render_text(f"Diseased: {diseased}", items_x_offset, self.y_offset + 120)
+        self.renderer.render_text(f"Immune: {immune}", items_x_offset, self.y_offset + 150)
+        self.renderer.render_text(f"Vaccinated: {vaccinated}", items_x_offset, self.y_offset + 180)
