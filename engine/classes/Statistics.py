@@ -24,7 +24,8 @@ class Statistics:
         self.renderer.render_text("Statistics:", self.x_offset, self.y_offset, True)
 
         items_x_offset = self.x_offset + 20
-        self.renderer.render_text(f"Alive: {people_count}/{self.initial_people_count}", items_x_offset, self.y_offset + 30)
+        self.renderer.render_text(f"Alive: {people_count}/{self.initial_people_count}", items_x_offset,
+                                  self.y_offset + 30)
         self.renderer.render_text(f"Deaths: {deaths}", items_x_offset, self.y_offset + 60)
         self.renderer.render_text(f"Infected: {infected}", items_x_offset, self.y_offset + 90)
         self.renderer.render_text(f"Diseased: {diseased}", items_x_offset, self.y_offset + 120)

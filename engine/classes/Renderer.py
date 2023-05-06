@@ -42,7 +42,7 @@ class Renderer:
         if border_color is not None:
             pygame.draw.circle(self.surface, border_color, position, self.dot_radius, BORDER_WIDTH)
 
-    def render_text(self, text, x, y, header = False):
+    def render_text(self, text, x, y, header=False):
         font = self.font_big if header else self.font_normal
         text = font.render(text, True, 'black')
         self.surface.blit(text, (x, y))

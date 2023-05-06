@@ -11,7 +11,9 @@ DOT_RADIUS = 10
 
 
 class Engine:
-    def __init__(self, surface, width, height, people_count, diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius, max_person_speed, incubation_time, disease_duration, hygiene_level):
+    def __init__(self, surface, width, height, people_count, diseased_count, infected_count, male_count,
+                 vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius,
+                 max_person_speed, incubation_time, disease_duration, hygiene_level):
         self.surface = surface
         self.width = width
         self.height = height
@@ -31,11 +33,12 @@ class Engine:
             self.people.append(person)
 
         # Setting True/False parameters randomly
-        counts = [diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count, pregnant_count]
+        counts = [diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count,
+                  pregnant_count]
         fields = ["diseased", "infected", "is_male", "vaccinated", "mask", "immune", "pregnant"]
         for index in range(len(counts)):
             for _ in range(counts[index]):
-                random_person_index = random.randint(0, len(self.people)-1)
+                random_person_index = random.randint(0, len(self.people) - 1)
                 field_name = fields[index]
                 if field_name == 'diseased':
                     self.people[random_person_index].set_state(State.DISEASED)
@@ -57,7 +60,7 @@ class Engine:
     def draw(self):
         self.surface.fill(SURFACE_COLOR)
         for person in self.people:
-            self.renderer.draw_person(person.state, person.immune,person.vaccinated, (person.get_position()))
+            self.renderer.draw_person(person.state, person.immune, person.vaccinated, (person.get_position()))
 
         self.statistics.update()
         self.legend.draw_legend()
