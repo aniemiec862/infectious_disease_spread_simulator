@@ -3,17 +3,23 @@ from .classes.Person import Person, State
 from .classes.Disease import Disease
 from .classes.Renderer import Renderer
 from .classes.Statistics import Statistics
+from .classes.StatsGraph import StatsGraph
 import random
 import math
 
 SURFACE_COLOR = (255, 255, 255)
 DOT_RADIUS = 10
 
+STATS_OFFSET_X = 40
+STATS_OFFSET_Y = 10
+LEGEND_OFFSET_Y = 230
+GRAPH_OFFSET_X = 850
+GRAPH_OFFSET_Y = 10
 
 class Engine:
     def __init__(self, surface, width, height, people_count, diseased_count, infected_count, male_count,
                  vaccinated_count, with_mask_count, immune_count, pregnant_count, disease_spread_radius,
-                 max_person_speed, incubation_time, disease_duration, hygiene_level):
+                 max_person_speed, incubation_time, disease_duration, hygiene_level, display_graph):
         self.surface = surface
         self.width = width
         self.height = height
@@ -51,11 +57,13 @@ class Engine:
                 else:
                     self.people[random_person_index].__setattr__(field_name, True)
 
-        stats_offset_x = width + 40
-        stats_offset_y = 10
-        legend_offset_y = 230
-        self.statistics = Statistics(self.renderer, stats_offset_x, stats_offset_y, self.people, people_count)
-        self.legend = Legend(self.renderer, stats_offset_x, legend_offset_y)
+        self.statistics = Statistics(self.renderer, STATS_OFFSET_X + width, STATS_OFFSET_Y, self.people, people_count, diseased_count + infected_count)
+        self.legend = Legend(self.renderer, STATS_OFFSET_X + width, LEGEND_OFFSET_Y)
+
+        if display_graph:
+            self.stats_graph = StatsGraph(self.renderer, GRAPH_OFFSET_X, GRAPH_OFFSET_Y)
+        else:
+            self.stats_graph = None
 
     def draw(self):
         self.surface.fill(SURFACE_COLOR)
@@ -64,6 +72,8 @@ class Engine:
 
         self.statistics.update()
         self.legend.draw_legend()
+        if self.stats_graph is not None:
+            self.stats_graph.update(self.statistics.get_susceptible(), self.statistics.get_infected_and_diseased(), self.statistics.get_dead_and_recovered())
 
     def update(self):
         for person in self.people:

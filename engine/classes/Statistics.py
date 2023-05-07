@@ -1,10 +1,12 @@
 class Statistics:
-    def __init__(self, renderer, x_offset, y_offset, people, initial_people_count):
+    def __init__(self, renderer, x_offset, y_offset, people, initial_people_count, initial_infected_count):
         self.renderer = renderer
         self.x_offset = x_offset
         self.y_offset = y_offset
         self.people = people
         self.initial_people_count = initial_people_count
+        self.dead_and_recovered = 0
+        self.infected_and_diseased = initial_infected_count
 
     def update(self):
         people_count = len(self.people)
@@ -21,6 +23,9 @@ class Statistics:
             if person.vaccinated:
                 vaccinated += 1
 
+        self.infected_and_diseased = infected + diseased
+        self.dead_and_recovered = deaths + immune
+
         self.renderer.render_text("Statistics:", self.x_offset, self.y_offset, True)
 
         items_x_offset = self.x_offset + 20
@@ -31,3 +36,12 @@ class Statistics:
         self.renderer.render_text(f"Diseased: {diseased}", items_x_offset, self.y_offset + 120)
         self.renderer.render_text(f"Immune: {immune}", items_x_offset, self.y_offset + 150)
         self.renderer.render_text(f"Vaccinated: {vaccinated}", items_x_offset, self.y_offset + 180)
+
+    def get_susceptible(self):
+        return len(self.people) - self.dead_and_recovered - self.infected_and_diseased
+
+    def get_dead_and_recovered(self):
+        return self.dead_and_recovered
+
+    def get_infected_and_diseased(self):
+        return self.infected_and_diseased

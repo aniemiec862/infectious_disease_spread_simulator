@@ -46,3 +46,6 @@ class Renderer:
         font = self.font_big if header else self.font_normal
         text = font.render(text, True, 'black')
         self.surface.blit(text, (x, y))
+
+    def render_graph(self, graph, x, y):
+        self.surface.blit(graph, (x, y))
