@@ -35,14 +35,13 @@ class StatsGraph:
         ax.legend()
         ax.set_xticklabels(labels=[])
 
-
         canvas = agg.FigureCanvasAgg(fig)
         canvas.draw()
         renderer = canvas.get_renderer()
         raw_data = renderer.tostring_rgb()
 
         size = canvas.get_width_height()
-
         graph = pygame.image.fromstring(raw_data, size, "RGB")
 
         self.renderer.render_graph(graph, self.x_offset, self.y_offset)
+        pylab.close(fig)

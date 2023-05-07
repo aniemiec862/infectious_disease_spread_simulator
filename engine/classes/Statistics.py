@@ -38,7 +38,7 @@ class Statistics:
         self.renderer.render_text(f"Vaccinated: {vaccinated}", items_x_offset, self.y_offset + 180)
 
     def get_susceptible(self):
-        return len(self.people) - self.dead_and_recovered - self.infected_and_diseased
+        return self.initial_people_count - self.dead_and_recovered - self.infected_and_diseased
 
     def get_dead_and_recovered(self):
         return self.dead_and_recovered
