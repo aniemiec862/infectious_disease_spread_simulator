@@ -4,7 +4,7 @@ import pylab
 import pygame
 
 class StatsGraph:
-    def __init__(self, renderer, x_offset, y_offset, downsample_factor=10):
+    def __init__(self, renderer, x_offset, y_offset, downsample_factor=100):
         self.renderer = renderer
         self.x_offset = x_offset
         self.y_offset = y_offset

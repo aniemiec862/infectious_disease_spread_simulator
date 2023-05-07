@@ -35,7 +35,7 @@ def run():
     else:
         screen_width = WIDTH + STATS_WIDTH
 
-    screen = pygame.display.set_mode((screen_width, HEIGHT))
+    screen = pygame.display.set_mode((screen_width, max(HEIGHT, 500)))
     sim = Engine(screen, WIDTH, HEIGHT, PEOPLE_COUNT, DISEASED_COUNT, INFECTED_COUNT, MALE_COUNT, VACCINATED_COUNT,
                  WITH_MASK_COUNT, IMMUNE_COUNT, PREGNANT_COUNT, DISEASE_SPREAD_RADIUS, MAX_PERSON_SPEED,
                  INCUBATION_TIME, DISEASE_DURATION, HYGIENE_LEVEL, DISPLAY_GRAPH)

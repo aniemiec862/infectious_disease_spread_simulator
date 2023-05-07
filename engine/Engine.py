@@ -13,7 +13,7 @@ DOT_RADIUS = 10
 STATS_OFFSET_X = 40
 STATS_OFFSET_Y = 10
 LEGEND_OFFSET_Y = 230
-GRAPH_OFFSET_X = 850
+GRAPH_OFFSET_X = 200
 GRAPH_OFFSET_Y = 10
 
 class Engine:
@@ -61,7 +61,7 @@ class Engine:
         self.legend = Legend(self.renderer, STATS_OFFSET_X + width, LEGEND_OFFSET_Y)
 
         if display_graph:
-            self.stats_graph = StatsGraph(self.renderer, GRAPH_OFFSET_X, GRAPH_OFFSET_Y)
+            self.stats_graph = StatsGraph(self.renderer, width + GRAPH_OFFSET_X, GRAPH_OFFSET_Y)
         else:
             self.stats_graph = None
 
