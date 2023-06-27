@@ -11,7 +11,7 @@ class State(Enum):
 
 
 class Person:
-    def __init__(self, x, y, speed, state=State.HEALTHY, is_male=True, age=20, rotation=0):
+    def __init__(self, x, y, speed, state=State.HEALTHY, is_male=True, age=20, rotation=0, hygiene_level = 0):
         self.is_male = is_male
         self.age = age
         self.state = state
@@ -22,6 +22,7 @@ class Person:
         self.position_state = PositionState(x, y, speed, rotation)
         self.other_diseases_factor = 0  # 0 - 100, is used in death calculation
         self.time_to_next_state = None
+        self.hygiene_level = hygiene_level
 
     def move(self, max_width, max_height, radius):
         d_angle = random.uniform(-1, 1)
@@ -96,5 +97,8 @@ class Person:
 
             if self.immune:
                 chance -= 10
+
+            if self.hygiene_level < 0:
+                chance -= self.hygiene_level
 
         return chance

@@ -32,7 +32,8 @@ class Engine:
                 x=random.randint(DOT_RADIUS, width - DOT_RADIUS),
                 y=random.randint(DOT_RADIUS, height - DOT_RADIUS),
                 speed=random.randint(1, max_person_speed),
-                age=random.randint(10, 80)
+                age=random.randint(10, 80),
+                hygiene_level=hygiene_level
             )
 
             person.set_other_diseases_factor(random.randint(0, 30))
