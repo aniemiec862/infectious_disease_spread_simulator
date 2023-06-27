@@ -41,21 +41,25 @@ class Engine:
         # Setting True/False parameters randomly
         counts = [diseased_count, infected_count, male_count, vaccinated_count, with_mask_count, immune_count,
                   pregnant_count]
-        fields = ["diseased", "infected", "is_male", "vaccinated", "mask", "immune", "pregnant"]
-        for index in range(len(counts)):
-            for _ in range(counts[index]):
-                random_person_index = random.randint(0, len(self.people) - 1)
-                field_name = fields[index]
-                if field_name == 'diseased':
-                    self.people[random_person_index].set_state(State.DISEASED)
-                    rand_disease_time = round(random.uniform(0.7 * disease_duration, 1.3 * disease_duration))
-                    self.people[random_person_index].set_time_to_next_state(rand_disease_time)
-                elif field_name == 'infected':
-                    self.people[random_person_index].set_state(State.INFECTED)
-                    rand_incubation_time = round(random.uniform(0.7 * incubation_time, 1.3 * incubation_time))
-                    self.people[random_person_index].set_time_to_next_state(rand_incubation_time)
-                else:
-                    self.people[random_person_index].__setattr__(field_name, True)
+        field_names = ["is_male", "vaccinated", "mask", "immune", "pregnant"]
+
+        diseased_people = self.people[:diseased_count]
+        for person in diseased_people:
+            person.set_state(State.DISEASED)
+            rand_disease_time = round(random.uniform(0.7 * disease_duration, 1.3 * disease_duration))
+            person.set_time_to_next_state(rand_disease_time)
+
+        infected_people = self.people[diseased_count:infected_count]
+        for person in infected_people:
+            person.set_state(State.INFECTED)
+            rand_incubation_time = round(random.uniform(0.7 * incubation_time, 1.3 * incubation_time))
+            person.set_time_to_next_state(rand_incubation_time)
+
+        for id, field in enumerate(counts[2:]):
+            random.shuffle(self.people)
+            people_to_add_attribute = self.people[:field]
+            for person in people_to_add_attribute:
+                person.__setattr__(field_names[id], True)
 
         self.statistics = Statistics(self.renderer, STATS_OFFSET_X + width, STATS_OFFSET_Y, self.people, people_count, diseased_count + infected_count)
         self.legend = Legend(self.renderer, STATS_OFFSET_X + width, LEGEND_OFFSET_Y)
